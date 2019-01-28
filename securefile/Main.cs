@@ -20,24 +20,27 @@ namespace securefile
 		{
 			InitializeComponent();
 		}
-		
-		private void Main_Load(object sender, EventArgs e)
-		{
-			//Util.FileEncrypt("eatmyass23451", "testdoc.txt", "encryptedFile.txt");
-
-			//Util.FileDecrypt("eatmyass23451", "encryptedFile.txt", "decrypted.txt");
-
-			//Environment.Exit(1);
-		}
 
 		private void InputBrowse_Click(object sender, EventArgs e)
 		{
-			if (openFileDialog1.ShowDialog() == DialogResult.OK)
+			if (EncryptRadio.Checked)
 			{
-				InputBox.Text = openFileDialog1.FileName;
+				if (openFileDialog1.ShowDialog() == DialogResult.OK)
+				{
+					InputBox.Text = openFileDialog1.FileName;
 
-				if (string.IsNullOrEmpty(EncryptedBox.Text))
-					EncryptedBox.Text = openFileDialog1.FileName + ".enc";
+					if (string.IsNullOrEmpty(EncryptedBox.Text))
+					{
+						int a = openFileDialog1.FileName.LastIndexOf('.');
+						EncryptedBox.Text = openFileDialog1.FileName.Substring(0, a) + ".enc" + InputBox.Text.Substring(a);
+					}
+
+				}
+			}
+			else
+			{
+				if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+					EncryptedBox.Text = saveFileDialog1.FileName;
 			}
 		}
 
@@ -51,7 +54,7 @@ namespace securefile
 			else
 			{
 				if (openFileDialog1.ShowDialog() == DialogResult.OK)
-					EncryptedBox.Text = saveFileDialog1.FileName;
+					EncryptedBox.Text = openFileDialog1.FileName;
 			}
 
 		}
@@ -61,8 +64,8 @@ namespace securefile
 
 			if (string.IsNullOrEmpty(EncryptedBox.Text) || string.IsNullOrEmpty(InputBox.Text) || !File.Exists(InputBox.Text))
 				return;
-			
-			string password = Interaction.InputBox("Enter password");
+
+				string password = Interaction.InputBox("Enter password");
 
 			if (string.IsNullOrEmpty(password))
 				return;
@@ -71,41 +74,54 @@ namespace securefile
 			if (EncryptRadio.Checked)
 			{
 				int delBytes = string.IsNullOrEmpty(LastBytes.Text) ? -1 : int.Parse(LastBytes.Text);
+				delBytes = delBytes <= 0 ? -1 : delBytes;
 
 				Util.FileEncrypt(password, InputBox.Text, EncryptedBox.Text, delBytes);
 
-				if (OverrideOriginalCheck.Checked)
-				{
-					if (delBytes != -1)
-						Util.DeleteLastBytes(InputBox.Text, delBytes);	
-				}
-				else
+				if (BackupEnc.Checked)
 				{
 					int a = InputBox.Text.LastIndexOf('.');
-					string newFile = InputBox.Text.Substring(0, a) + ".modified" + InputBox.Text.Substring(a);
+					string newFile = InputBox.Text.Substring(0, a) + ".bak" + InputBox.Text.Substring(a);
 
 
 					if (delBytes != -1)
-					{
 						File.Copy(InputBox.Text, newFile);
-						Util.DeleteLastBytes(newFile, delBytes);
-					}
 
 				}
+
+				if (delBytes != -1)
+					Util.DeleteLastBytes(InputBox.Text, delBytes);
+
+				MessageBox.Show("Encryption complete");
 
 			}
 			else
 			{
-				if (duplicateCheck.Checked && !File.Exists(InputBox.Text + ".bak"))
-					File.Copy(InputBox.Text, InputBox.Text + ".bak");
+				string newFile = InputBox.Text + ".encbak";
 
-				Util.FileDecrypt(password, EncryptedBox.Text, InputBox.Text);
+				if (BackupDec.Checked && File.Exists(InputBox.Text))
+				{
+					string lol = newFile;
+					int iter = 1;
+
+					while (File.Exists(lol))
+					{
+						lol = newFile + iter++.ToString();
+					}
+					File.Copy(InputBox.Text, lol);
+				}
+
+				if (Util.FileDecrypt(password, EncryptedBox.Text, InputBox.Text))
+					MessageBox.Show("Successfully decrypted file");
+				else
+					MessageBox.Show("Password is incorrect");
+
 			}
 		}
 
 		private void ModeChanged(object sender, EventArgs e)
 		{
-			label1.Text = EncryptRadio.Checked ? "Input File" : "Output File";
+			label1.Text = (LastBytes.Enabled = EncryptRadio.Checked) ? "Input File" : "Output File";
 		}
 	}
 }

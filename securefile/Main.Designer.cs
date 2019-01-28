@@ -39,8 +39,8 @@
 			this.DecryptRadio = new System.Windows.Forms.RadioButton();
 			this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
 			this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
-			this.duplicateCheck = new System.Windows.Forms.CheckBox();
-			this.OverrideOriginalCheck = new System.Windows.Forms.CheckBox();
+			this.BackupDec = new System.Windows.Forms.CheckBox();
+			this.BackupEnc = new System.Windows.Forms.CheckBox();
 			this.LastBytes = new System.Windows.Forms.TextBox();
 			this.label3 = new System.Windows.Forms.Label();
 			this.SuspendLayout();
@@ -135,27 +135,29 @@
 			// 
 			this.saveFileDialog1.OverwritePrompt = false;
 			// 
-			// duplicateCheck
+			// BackupDec
 			// 
-			this.duplicateCheck.AutoSize = true;
-			this.duplicateCheck.Checked = true;
-			this.duplicateCheck.CheckState = System.Windows.Forms.CheckState.Checked;
-			this.duplicateCheck.Location = new System.Drawing.Point(286, 169);
-			this.duplicateCheck.Name = "duplicateCheck";
-			this.duplicateCheck.Size = new System.Drawing.Size(168, 17);
-			this.duplicateCheck.TabIndex = 9;
-			this.duplicateCheck.Text = "Create copy before decrypting";
-			this.duplicateCheck.UseVisualStyleBackColor = true;
+			this.BackupDec.AutoSize = true;
+			this.BackupDec.Checked = true;
+			this.BackupDec.CheckState = System.Windows.Forms.CheckState.Checked;
+			this.BackupDec.Location = new System.Drawing.Point(286, 169);
+			this.BackupDec.Name = "BackupDec";
+			this.BackupDec.Size = new System.Drawing.Size(148, 17);
+			this.BackupDec.TabIndex = 9;
+			this.BackupDec.Text = "Backup before decrypting";
+			this.BackupDec.UseVisualStyleBackColor = true;
 			// 
-			// OverrideOriginalCheck
+			// BackupEnc
 			// 
-			this.OverrideOriginalCheck.AutoSize = true;
-			this.OverrideOriginalCheck.Location = new System.Drawing.Point(286, 201);
-			this.OverrideOriginalCheck.Name = "OverrideOriginalCheck";
-			this.OverrideOriginalCheck.Size = new System.Drawing.Size(185, 17);
-			this.OverrideOriginalCheck.TabIndex = 10;
-			this.OverrideOriginalCheck.Text = "Override original file for encryption";
-			this.OverrideOriginalCheck.UseVisualStyleBackColor = true;
+			this.BackupEnc.AutoSize = true;
+			this.BackupEnc.Checked = true;
+			this.BackupEnc.CheckState = System.Windows.Forms.CheckState.Checked;
+			this.BackupEnc.Location = new System.Drawing.Point(286, 201);
+			this.BackupEnc.Name = "BackupEnc";
+			this.BackupEnc.Size = new System.Drawing.Size(148, 17);
+			this.BackupEnc.TabIndex = 10;
+			this.BackupEnc.Text = "Backup before encrypting";
+			this.BackupEnc.UseVisualStyleBackColor = true;
 			// 
 			// LastBytes
 			// 
@@ -180,8 +182,8 @@
 			this.ClientSize = new System.Drawing.Size(571, 267);
 			this.Controls.Add(this.label3);
 			this.Controls.Add(this.LastBytes);
-			this.Controls.Add(this.OverrideOriginalCheck);
-			this.Controls.Add(this.duplicateCheck);
+			this.Controls.Add(this.BackupEnc);
+			this.Controls.Add(this.BackupDec);
 			this.Controls.Add(this.DecryptRadio);
 			this.Controls.Add(this.EncryptRadio);
 			this.Controls.Add(this.StartButton);
@@ -195,7 +197,6 @@
 			this.MaximizeBox = false;
 			this.Name = "Main";
 			this.Text = "SecureFile";
-			this.Load += new System.EventHandler(this.Main_Load);
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -214,8 +215,8 @@
 		private System.Windows.Forms.RadioButton DecryptRadio;
 		private System.Windows.Forms.OpenFileDialog openFileDialog1;
 		private System.Windows.Forms.SaveFileDialog saveFileDialog1;
-		private System.Windows.Forms.CheckBox duplicateCheck;
-		private System.Windows.Forms.CheckBox OverrideOriginalCheck;
+		private System.Windows.Forms.CheckBox BackupDec;
+		private System.Windows.Forms.CheckBox BackupEnc;
 		private System.Windows.Forms.TextBox LastBytes;
 		private System.Windows.Forms.Label label3;
 	}

@@ -103,13 +103,10 @@ namespace securefile
 
 				//File.WriteAllBytes(outFile, decryptedContent);
 				Util.AppendAllBytes(outFile, decryptedContent);
-				MessageBox.Show("Successfully decrypted file");
 
 				return true;
 			}
 			
-
-			MessageBox.Show("Password is incorrect");
 			return false;
 			
 		}
