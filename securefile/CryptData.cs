@@ -5,8 +5,8 @@
 	{
 		public const int CIPHERLEN = Encryption.KEY_SIZE + Encryption.IV_SIZE + 16; // aes cipher size calculation
 
-		public const int TOTAL_SIZE = CIPHERLEN + Encryption.IV_SIZE + Hashing.HASHLEN + Hashing.SALT_SIZE; // Total size of data
-		public readonly int[] SECTIONLEN = { CIPHERLEN, Encryption.IV_SIZE, Hashing.HASHLEN }; // length of each section
+		public const int TOTAL_SIZE = CIPHERLEN + Encryption.IV_SIZE + Hashing.HASH_SIZE + Hashing.SALT_SIZE; // Total size of data
+		public readonly int[] SECTIONLEN = { CIPHERLEN, Encryption.IV_SIZE, Hashing.HASH_SIZE }; // length of each section
 
 		public byte[] Cipher { get; set; }
 		public byte[] CipherIV { get; set; }

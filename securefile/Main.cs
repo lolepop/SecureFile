@@ -5,7 +5,9 @@ using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Microsoft.VisualBasic;
@@ -111,7 +113,9 @@ namespace securefile
 					File.Copy(InputBox.Text, lol);
 				}
 
-				if (Util.FileDecrypt(password, EncryptedBox.Text, InputBox.Text))
+
+				bool res = Util.FileDecrypt(password, EncryptedBox.Text, InputBox.Text);
+				if (res)
 					MessageBox.Show("Successfully decrypted file");
 				else
 					MessageBox.Show("Password is incorrect");
